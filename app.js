@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const index = require('./routes/index')
-const recipes = require('./routes/recipes');
+// const recipes = require('./routes/recipes');
 const steps = require('./routes/steps');
 const ingredients = require('./routes/ingredients');
 const users = require('./routes/users');
@@ -33,7 +33,7 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/recipes', recipes);
+// app.use('/recipes', recipes);
 app.use('/steps', steps);
 app.use('/ingredients', ingredients);
 app.use('/users', users);
