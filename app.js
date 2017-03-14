@@ -23,7 +23,7 @@ app.set('view engine', 'jade');
 
 
 
-app.use(cors({origin: 'https://grecipes-3e65f.firebaseapp.com'}))
+app.use(cors())
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
