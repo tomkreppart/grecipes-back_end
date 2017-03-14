@@ -6,11 +6,11 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const index = require('./routes/index')
-// const recipes = require('./routes/recipes');
-// const steps = require('./routes/steps');
-// const ingredients = require('./routes/ingredients');
-// const users = require('./routes/users');
-// const reviews = require('./routes/reviews');
+const recipes = require('./routes/recipes');
+const steps = require('./routes/steps');
+const ingredients = require('./routes/ingredients');
+const users = require('./routes/users');
+const reviews = require('./routes/reviews');
 
 
 const app = express();
@@ -22,7 +22,12 @@ app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'jade');
 
 
-app.use(cors({origin: 'https://grecipes-3e65f.firebaseapp.com/'}))
+var corsOptions = {
+            origin: 'https://grecipes-3e65f.firebaseapp.com/',
+            optionsSuccessStatus: 200
+          }
+
+app.use(cors(corsOptions))
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -32,11 +37,11 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-// app.use('/recipes', recipes);
-// app.use('/steps', steps);
-// app.use('/ingredients', ingredients);
-// app.use('/users', users);
-// app.use('/reviews', reviews);
+app.use('/recipes', recipes);
+app.use('/steps', steps);
+app.use('/ingredients', ingredients);
+app.use('/users', users);
+app.use('/reviews', reviews);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
