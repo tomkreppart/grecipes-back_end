@@ -2,7 +2,7 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable("steps", function(steps){
     steps.increments();
     steps.text("body");
-    steps.integer("recipe_id").references("id").inTable("recipes");
+    steps.integer("recipe_id").references("id").inTable("recipes").onDelete("cascade");
     steps.integer("stepOrder");
   });
 

@@ -203,12 +203,6 @@ exports.seed = function(knex, Promise) {
           ingredient_id: 10
         },
         {
-          recipe_id: 4,
-          quantity: "1",
-          units: "layer of",
-          ingredient_id: 0
-        },
-        {
           recipe_id: 5,
           quantity: "1 1/2",
           units: "pounds",

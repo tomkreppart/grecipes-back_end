@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     recipe.increments();
     recipe.string("title");
     recipe.string("author");
-    recipe.integer("user_id").references("id").inTable("users");
+    recipe.integer("user_id").references("id").inTable("users").onDelete("cascade");
     recipe.text("description");
     recipe.string("imgURL");
   });

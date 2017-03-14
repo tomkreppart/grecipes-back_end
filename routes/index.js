@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const queries = require('../db/queries');
 
-/* GET home page. */
+/* Recipes Routes */
 router.get('/recipes', function(req, res, next) {
   queries.getAllRecipes().then(function (recipes) {
     res.send(recipes)
@@ -20,5 +20,14 @@ router.post('/recipes', function(req, res, next) {
     res.send(recipe)
   })
 })
+
+
+/* Recipes Routes */
+router.get('/users', function(req, res, next) {
+  queries.getAllUsers().then(function (users) {
+    res.send(users)
+  })
+})
+
 
 module.exports = router;

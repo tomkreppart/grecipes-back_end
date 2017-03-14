@@ -3,8 +3,8 @@ exports.up = function(knex, Promise) {
     review.increments();
     review.text("body");
     review.integer("rating");
-    review.integer("recipe_id").references("id").inTable("recipes");
-    review.integer("user_id").references("id").inTable("users");
+    review.integer("recipe_id").references("id").inTable("recipes").onDelete("cascade");
+    review.integer("user_id").references("id").inTable("users").onDelete("cascade");
   });
 
 };
