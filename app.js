@@ -15,7 +15,7 @@ const index = require('./routes/index')
 
 const app = express();
 
-app.use(cors({origin: 'https://grecipes-601de.firebaseapp.com'}))
+app.use(cors({origin: 'https://grecipes-3e65f.firebaseapp.com/'}))
 
 // view engine setup
 app.set('views', path.join(__dirname, '/views'));
