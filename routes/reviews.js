@@ -4,8 +4,8 @@ const queries = require('../db/queries');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  queries.getAllUsers().then(function (users) {
-    res.send("users",  {users: users})
+  queries.getAllReviews().then(function (recipes) {
+    res.send("index",  {recipes: recipes})
   })
 })
 

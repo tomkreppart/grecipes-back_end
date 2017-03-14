@@ -6,8 +6,8 @@ module.exports = {
   createUser,
   editUser,
   deleteUser,
-  listRecipes,
-  readRecipe,
+  getAllRecipes,
+  getOneRecipe,
   createRecipe,
   editRecipe,
   deleteRecipe
@@ -28,7 +28,7 @@ function createUser(recipes){
 }
 
 function editUser(id, post) {
-    return knex("recipe").where("id", id).update(post, "id");
+    return knex("recipes").where("id", id).update(post, "id");
 }
 function deleteUser(id) {
     return knex("recipes").where("id", id).del();
@@ -44,8 +44,8 @@ function getOneRecipe(id){
     return knex("recipes").select("*").where("id", id);
 }
 
-function createRecipe(recipes){
-    return knex("recipes").insert(recipes);
+function createRecipe(recipe){
+    return knex("recipes").insert(recipe);
 }
 
 function editRecipe(id, post) {
