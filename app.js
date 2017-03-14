@@ -22,12 +22,8 @@ app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'jade');
 
 
-var corsOptions = {
-            origin: 'https://grecipes-3e65f.firebaseapp.com/',
-            optionsSuccessStatus: 200
-          }
 
-app.use(cors(corsOptions))
+app.use(cors({origin: 'https://grecipes-3e65f.firebaseapp.com/'}))
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
