@@ -94,6 +94,17 @@ router.post('/recipes', function(req, res, next) {
   });
 })
 
+router.put('/recipes/:id', function(req, res, next) {
+  // var obj = {}
+  // obj.name = req.body.name
+  console.log(req.body);
+  queries.editUser(req.params.id, req.body.name).then(function (editUser) {
+    res.json(editUser)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
 
 
 ////////////////// Steps Queries \\\\\\\\\\\\\\\\\\\\\
