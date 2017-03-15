@@ -105,6 +105,26 @@ router.post('/steps', function(req, res, next) {
   });
 })
 
+router.get('/steps/:id', function(req, res, next) {
+  queries.getRecipeSteps(req.params.id).then(function (steps) {
+    res.json(steps)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
+
+
+////////////////// Rating Queries \\\\\\\\\\\\\\\\\\\\\
+
+router.get('/rating/:id', function(req, res, next) {
+  queries.getAvgRating(req.params.id).then(function (avg) {
+    res.json(avg)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
 
 
 module.exports = router;

@@ -30,7 +30,9 @@ module.exports = {
   getOneIngredient,
   createIngredient,
   editIngredient,
-  deleteIngredient
+  deleteIngredient,
+
+  getAvgRating
 };
 
 ////////////////// User Queries \\\\\\\\\\\\\\\\\\\\\
@@ -140,6 +142,17 @@ function createIngredient(ingredient){
 function editIngredient(id, ingredient) {
     return knex("ingredients").where("id", id).update(ingredient, "id");
 }
+
 function deleteIngredient(id) {
     return knex("ingredients").where("id", id).del();
 }
+
+function getAvgRating(id) {
+    return knex('recipes')
+      .join('reviews', 'recipes.id', '=', 'reviews.recipe_id')
+      .select("*", 'recipes.id as recipe_index')
+      .avg("rating")
+      ;
+}
+
+// SELECT ... FROM table1 CROSS JOIN table2 ...

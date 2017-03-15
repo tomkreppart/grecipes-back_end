@@ -7,10 +7,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const index = require('./routes/index')
 // const recipes = require('./routes/recipes');
-const steps = require('./routes/steps');
-const ingredients = require('./routes/ingredients');
-const users = require('./routes/users');
-const reviews = require('./routes/reviews');
+// const steps = require('./routes/steps');
+// const ingredients = require('./routes/ingredients');
+// const users = require('./routes/users');
+// const reviews = require('./routes/reviews');
 
 
 const app = express();
@@ -34,10 +34,10 @@ app.use(cookieParser());
 
 app.use('/', index);
 // app.use('/recipes', recipes);
-app.use('/steps', steps);
-app.use('/ingredients', ingredients);
-app.use('/users', users);
-app.use('/reviews', reviews);
+// app.use('/steps', steps);
+// app.use('/ingredients', ingredients);
+// app.use('/users', users);
+// app.use('/reviews', reviews);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
