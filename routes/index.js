@@ -38,29 +38,25 @@ router.post('/users', function(req, res, next) {
 })
 
 router.put('/users/:id', function(req, res, next) {
-  var obj = {}
-  obj.name = req.body.name
-  console.log(obj);
-  queries.editUser(obj).then(function (user) {
-    res.json(user)
+  // var obj = {}
+  // obj.name = req.body.name
+  console.log(req.body.name);
+  queries.editUser(req.params.id, req.body.name).then(function (editUser) {
+    res.json(editUser)
   })
   .catch((result) => {
     console.log("error results", result)
   });
 })
 
-// router.delete('/users/:id', function(req, res, next) {
-//   var obj = {}
-//   obj.name = req.params.name
-//   console.log(obj);
-//
-//   queries.editUser(obj).then(function (user) {
-//     res.json(user)
-//   })
-//   .catch((result) => {
-//     console.log("error results", result)
-//   });
-// })
+router.delete('/users/:id', function(req, res, next) {
+  queries.deleteUser(req.params.id).then(function (user) {
+    res.json(user)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
 
 
 ////////////////// Recipe Queries \\\\\\\\\\\\\\\\\\\\\
