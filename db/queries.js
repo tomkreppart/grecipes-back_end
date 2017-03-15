@@ -59,7 +59,7 @@ function deleteUser(id) {
 ////////////////// Recipe Queries \\\\\\\\\\\\\\\\\\\\\
 
 function getAllRecipes(){
-    return knex("recipes").join("users", "users.id", "=", "recipes.user_id");
+    return knex("recipes").leftJoin("users", "users.id", "=", "recipes.user_id");
 }
 
 function getOneRecipe(id){
@@ -70,8 +70,8 @@ function createRecipe(recipe){
     return knex("recipes").insert(recipe);
 }
 
-function editRecipe(id, recipe) {
-    return knex("recipes").where("id", id).update(recipe, "id");
+function editRecipe(id, title) {
+    return knex("recipes").where("id", id).update("title", title);
 }
 function deleteRecipe(id) {
     return knex("recipes").where("id", id).del();

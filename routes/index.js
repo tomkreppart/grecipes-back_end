@@ -80,26 +80,26 @@ router.get('/recipes/:id', function(req, res, next) {
 })
 
 router.post('/recipes', function(req, res, next) {
-  var obj = {}
-  obj.title = req.body.title
-  obj.author = req.body.author
-  obj.description = req.body.description
-  obj.imgURL = req.body.imgURL
-  console.log(obj);
-  queries.createRecipe(obj).then(function (recipe) {
+  var newRecipe = {}
+  newRecipe.title = req.body.title
+  newRecipe.author = req.body.author
+  newRecipe.description = req.body.description
+  newRecipe.user_id = req.body.user_id
+  console.log(newRecipe);
+  queries.createRecipe(newRecipe).then(function (recipe) {
     res.json(recipe)
   })
   .catch((result) => {
     console.log("error results", result)
-  });
+  })
 })
 
 router.put('/recipes/:id', function(req, res, next) {
   // var obj = {}
   // obj.name = req.body.name
-  console.log(req.body);
-  queries.editUser(req.params.id, req.body.name).then(function (editUser) {
-    res.json(editUser)
+  console.log(req.body.title);
+  queries.editRecipe(req.params.id, req.body.title).then(function (editRecipe) {
+    res.json(editRecipe)
   })
   .catch((result) => {
     console.log("error results", result)
