@@ -3,15 +3,6 @@ const router = express.Router();
 const queries = require('../db/queries');
 
 
-router.get('/ingredients/:id', function(req, res, next) {
-  queries.getAllIngredients(req.params.id).then(function (ingredients) {
-    res.json(ingredients)
-  })
-  .catch((result) => {
-    console.log("error results", result)
-  });
-})
-
 
 ////////////////// User Queries \\\\\\\\\\\\\\\\\\\\\
 
@@ -45,6 +36,32 @@ router.post('/users', function(req, res, next) {
     console.log("error results", result)
   });
 })
+
+router.put('/users/:id', function(req, res, next) {
+  var obj = {}
+  obj.name = req.body.name
+  console.log(obj);
+  queries.editUser(obj).then(function (user) {
+    res.json(user)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
+
+// router.delete('/users/:id', function(req, res, next) {
+//   var obj = {}
+//   obj.name = req.params.name
+//   console.log(obj);
+//
+//   queries.editUser(obj).then(function (user) {
+//     res.json(user)
+//   })
+//   .catch((result) => {
+//     console.log("error results", result)
+//   });
+// })
+
 
 ////////////////// Recipe Queries \\\\\\\\\\\\\\\\\\\\\
 
@@ -81,6 +98,8 @@ router.post('/recipes', function(req, res, next) {
   });
 })
 
+
+
 ////////////////// Steps Queries \\\\\\\\\\\\\\\\\\\\\
 
 router.get('/steps/:id', function(req, res, next) {
@@ -105,9 +124,35 @@ router.post('/steps', function(req, res, next) {
   });
 })
 
-router.get('/steps/:id', function(req, res, next) {
-  queries.getRecipeSteps(req.params.id).then(function (steps) {
-    res.json(steps)
+
+
+////////////////// Review Queries \\\\\\\\\\\\\\\\\\\\\
+
+router.get('/reviews', function(req, res, next) {
+  queries.getAllReviews().then(function (reviews) {
+    res.json(reviews)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
+
+router.get('/reviews/:id', function(req, res, next) {
+  queries.getOneReview().then(function (reviews) {
+    res.json(reviews)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
+
+router.post('/reviews', function(req, res, next) {
+  var obj = {}
+  obj.name = req.body.name
+  console.log(obj);
+
+  queries.createStep(obj).then(function (review) {
+    res.json(review)
   })
   .catch((result) => {
     console.log("error results", result)
@@ -115,16 +160,41 @@ router.get('/steps/:id', function(req, res, next) {
 })
 
 
+
 ////////////////// Rating Queries \\\\\\\\\\\\\\\\\\\\\
 
-router.get('/rating/:id', function(req, res, next) {
+router.get('/ratingAverage/:id', function(req, res, next) {
   queries.getAvgRating(req.params.id).then(function (avg) {
+    console.log(avg);
     res.json(avg)
   })
   .catch((result) => {
     console.log("error results", result)
   });
 })
+
+
+
+////////////////// Ingredient Queries \\\\\\\\\\\\\\\\\\\\\
+
+router.get('/ingredients/:id', function(req, res, next) {
+  queries.getAllIngredients(req.params.id).then(function (ingredients) {
+    res.json(ingredients)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
+
+router.get('/ingredients/single/:id', function(req, res, next) {
+  queries.getOneIngredient(req.params.id).then(function (ingredient) {
+    res.json(ingredient)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
+
 
 
 module.exports = router;

@@ -124,15 +124,16 @@ function deleteReview(id) {
 
 
 function getAllIngredients(id){
-  return knex('recipes')
-    .join('ingredients_recipes', 'recipes.id', '=', 'ingredients_recipes.recipe_id')
-    .leftJoin('ingredients', 'ingredients_recipes.ingredient_id', '=', 'ingredients.id')
-    .select('*', 'ingredients.id as ingredient_index', 'recipes.id as recipe_index', 'ingredients.imgURL as ingredient_img', 'recipes.imgURL as recipe_img')
-    .where('recipes.id', id)
+    return knex('recipes')
+          .join('ingredients_recipes', 'recipes.id', '=', 'ingredients_recipes.recipe_id')
+          .leftJoin('ingredients', 'ingredients_recipes.ingredient_id', '=', 'ingredients.id')
+          .where('recipes.id', id)
 }
 
 function getOneIngredient(id){
-    return knex("ingredients").select("*").where("id", id);
+    return knex("ingredients_recipes")
+          .distinct('units', 'quantity')
+          .select();
 }
 
 function createIngredient(ingredient){
@@ -148,11 +149,13 @@ function deleteIngredient(id) {
 }
 
 function getAvgRating(id) {
-    return knex('recipes')
-      .join('reviews', 'recipes.id', '=', 'reviews.recipe_id')
-      .select("*", 'recipes.id as recipe_index')
-      .avg("rating")
-      ;
+    return knex('reviews')
+          .where("reviews.recipe_id", id)
+          .avg("reviews.rating")
 }
+
+  // .pluck('reviews.rating')
+// .groupBy("reviews.recipe_id")
+// .select("*")
 
 // SELECT ... FROM table1 CROSS JOIN table2 ...
