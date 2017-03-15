@@ -14,8 +14,8 @@ module.exports = {
   editRecipe,
   deleteRecipe,
 
-  getAllSteps,
-  getOneStep,
+  getRecipeSteps,
+  // getOneStep,
   createStep,
   editStep,
   deleteStep,
@@ -77,13 +77,14 @@ function deleteRecipe(id) {
 
 ////////////////// Steps Queries \\\\\\\\\\\\\\\\\\\\\
 
-function getAllSteps(){
-    return knex("steps").select("*").join("recipes", "recipes.id", "=", "steps.recipe_id");
+function getRecipeSteps(id){
+    return knex("steps").select("*").where("recipe_id", id)
+    // .join("recipes", "recipes.id", "=", "steps.recipe_id");
 }
 
-function getOneStep(id){
-    return knex("steps").select("*").where("id", id);
-}
+// function getOneStep(id){
+//     return knex("steps").select("*").where("id", id);
+// }
 
 function createStep(step){
     return knex("steps").insert(step);
@@ -103,7 +104,7 @@ function getAllReviews(){
 }
 
 function getOneReview(id){
-    return knex("reviews").select("*").where("id", id);
+    return knex("reviews").select("*").where("recipe_id", id);
 }
 
 function createReview(review){
@@ -119,8 +120,13 @@ function deleteReview(id) {
 
 ////////////////// Ingredients Queries \\\\\\\\\\\\\\\\\\\\\
 
-function getAllIngredients(){
-    return knex("ingredients").select("*");
+
+function getAllIngredients(id){
+  return knex('recipes')
+    .join('ingredients_recipes', 'recipes.id', '=', 'ingredients_recipes.recipe_id')
+    .leftJoin('ingredients', 'ingredients_recipes.ingredient_id', '=', 'ingredients.id')
+    .select('*', 'ingredients.id as ingredient_index', 'recipes.id as recipe_index', 'ingredients.imgURL as ingredient_img', 'recipes.imgURL as recipe_img')
+    .where('recipes.id', id)
 }
 
 function getOneIngredient(id){
