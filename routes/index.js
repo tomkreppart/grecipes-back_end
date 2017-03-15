@@ -87,8 +87,11 @@ router.post('/recipes', function(req, res, next) {
   newRecipe.user_id = req.body.user_id
   newRecipe.imgURL = req.body.imgURL
   console.log(newRecipe);
-  queries.createRecipe(newRecipe).then(function (recipe) {
-    res.json(recipe)
+
+  queries.createRecipe(newRecipe)
+  .then(function (recipe) {
+    console.log(recipe);
+    res.send(recipe)
   })
   .catch((result) => {
     console.log("error results", result)

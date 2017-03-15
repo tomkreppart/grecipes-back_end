@@ -59,7 +59,9 @@ function deleteUser(id) {
 ////////////////// Recipe Queries \\\\\\\\\\\\\\\\\\\\\
 
 function getAllRecipes(){
-    return knex("recipes").leftJoin("users", "users.id", "=", "recipes.user_id");
+    return knex("recipes")
+        .select("recipes.id as id", "recipes.title as title", "recipes.author as author", "recipes.user_id as user_id", "recipes.description as description", "recipes.imgURL as imgURL")
+        .leftJoin("users", "users.id", "=", "recipes.user_id");
 }
 
 function getOneRecipe(id){
