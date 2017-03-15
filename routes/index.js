@@ -85,6 +85,7 @@ router.post('/recipes', function(req, res, next) {
   newRecipe.author = req.body.author
   newRecipe.description = req.body.description
   newRecipe.user_id = req.body.user_id
+  newRecipe.imgURL = req.body.imgURL
   console.log(newRecipe);
   queries.createRecipe(newRecipe).then(function (recipe) {
     res.json(recipe)
