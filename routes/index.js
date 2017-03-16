@@ -300,12 +300,19 @@ router.get('/ratingAverage/:id', function(req, res, next) {
 
 
 
-
-
 ////////////////// Ingredient Queries \\\\\\\\\\\\\\\\\\\\\
 
+router.get('/ingredients', function(req, res, next) {
+  queries.getAllIngredients().then(function (ingredients) {
+    res.json(ingredients)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
+
 router.get('/ingredients/:id', function(req, res, next) {
-  queries.getAllIngredients(req.params.id).then(function (ingredients) {
+  queries.getIngredientsForRecipe(req.params.id).then(function (ingredients) {
     res.json(ingredients)
   })
   .catch((result) => {
@@ -322,16 +329,16 @@ router.get('/ingredients/single/:id', function(req, res, next) {
   });
 })
 
-router.post('/ingredients/:id', function(req, res, next) {
-  var newReview = {}
-  newReview.body = req.body.body
-  newReview.rating = req.body.rating
-  newReview.recipe_id = req.body.recipe_id
-  newReview.user_id = req.body.user_id
-  console.log(newReview);
+router.post('/ingredients/:ingredient_id/recipes/:recipe_id', function(req, res, next) {
+  var newIngredient = {}
+  newIngredient.units = req.body.units
+  newIngredient.quantity = req.body.quantity
+  newIngredient.recipe_id = req.body.recipe_id
+  newIngredient.ingredient_id = req.body.ingredient_id
+  console.log(newIngredient);
 
-  queries.createReview(newReview).then(function (review) {
-    res.json(review)
+  queries.createIngredient(newIngredient).then(function (ingredient) {
+    res.json(ingredient)
   })
   .catch((result) => {
     console.log("error results", result)

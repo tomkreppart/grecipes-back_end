@@ -28,6 +28,7 @@ module.exports = {
   deleteReview,
 
   getAllIngredients,
+  getIngredientsForRecipe,
   getOneIngredient,
   createIngredient,
   editIngredient,
@@ -35,6 +36,8 @@ module.exports = {
 
   getAvgRating
 };
+
+
 
 ////////////////// User Queries \\\\\\\\\\\\\\\\\\\\\
 
@@ -47,7 +50,7 @@ function getOneUser(id){
 }
 
 function createUser(user){
-    return knex("users").insert(user);
+    return knex("users").insert(user, "*");
 }
 
 function editUser(id, name) {
@@ -56,6 +59,8 @@ function editUser(id, name) {
 function deleteUser(id) {
     return knex("users").where("id", id).del();
 }
+
+
 
 ////////////////// Recipe Queries \\\\\\\\\\\\\\\\\\\\\
 
@@ -70,7 +75,7 @@ function getOneRecipe(id){
 }
 
 function createRecipe(recipe){
-    return knex("recipes").insert(recipe);
+    return knex("recipes").insert(recipe, "*");
 }
 
 function editRecipe(id) {
@@ -87,6 +92,8 @@ function deleteRecipe(id) {
     return knex("recipes").where("id", id).del();
 }
 
+
+
 ////////////////// Steps Queries \\\\\\\\\\\\\\\\\\\\\
 
 function getRecipeSteps(id) {
@@ -99,7 +106,7 @@ function getAllSteps(){
 }
 
 function createStep(step) {
-    return knex("steps").insert(step);
+    return knex("steps").insert(step, "*");
 }
 
 function editStep(id, step) {
@@ -112,6 +119,8 @@ function deleteAllSteps(id) {
 function deleteOneStep(id, stepNum) {
     return knex("steps").where("recipe_id", id).where("stepOrder", stepNum).del();
 }
+
+
 
 ////////////////// Reviews Queries \\\\\\\\\\\\\\\\\\\\\
 
@@ -126,7 +135,7 @@ function getSetOfReviews(id){
 }
 
 function createReview(review){
-    return knex("reviews").insert(review);
+    return knex("reviews").insert(review, "*");
 }
 
 function editReview(id, review) {
@@ -136,10 +145,15 @@ function deleteReview(id) {
     return knex("reviews").where("id", id).del();
 }
 
+
+
 ////////////////// Ingredients Queries \\\\\\\\\\\\\\\\\\\\\
 
-
 function getAllIngredients(id){
+    return knex("ingredients").select("*");
+}
+
+function getIngredientsForRecipe(id){
     return knex('recipes')
           .join('ingredients_recipes', 'recipes.id', '=', 'ingredients_recipes.recipe_id')
           .leftJoin('ingredients', 'ingredients_recipes.ingredient_id', '=', 'ingredients.id')
@@ -153,7 +167,7 @@ function getOneIngredient(id){
 }
 
 function createIngredient(ingredient){
-    return knex("ingredients").insert(ingredient);
+    return knex("ingredients_recipes").insert(ingredient, "*");
 }
 
 function editIngredient(id, ingredient) {
@@ -169,9 +183,3 @@ function getAvgRating(id) {
           .where("reviews.recipe_id", id)
           .avg("reviews.rating")
 }
-
-  // .pluck('reviews.rating')
-// .groupBy("reviews.recipe_id")
-// .select("*")
-
-// SELECT ... FROM table1 CROSS JOIN table2 ...
