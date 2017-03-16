@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const queries = require('../db/queries');
+const knex = require("../db/knex");
 
 
 
@@ -38,8 +39,6 @@ router.post('/users', function(req, res, next) {
 })
 
 router.put('/users/:id', function(req, res, next) {
-  // var obj = {}
-  // obj.name = req.body.name
   console.log(req.body.name);
   queries.editUser(req.params.id, req.body.name).then(function (editUser) {
     res.json(editUser)
@@ -71,7 +70,7 @@ router.get('/recipes', function(req, res, next) {
 })
 
 router.get('/recipes/:id', function(req, res, next) {
-  queries.getOneRecipe(req.params.id).then(function (recipe) {
+  queries.getOneRecipe(req.params.id, req.body).then(function (recipe) {
     res.json(recipe)
   })
   .catch((result) => {
@@ -99,15 +98,22 @@ router.post('/recipes', function(req, res, next) {
 })
 
 router.put('/recipes/:id', function(req, res, next) {
-  // var obj = {}
-  // obj.name = req.body.name
-  console.log(req.body.title);
-  queries.editRecipe(req.params.id, req.body.title).then(function (editRecipe) {
-    res.json(editRecipe)
-  })
-  .catch((result) => {
-    console.log("error results", result)
-  });
+  console.log(req.params.id);
+  console.log(req.body);
+  knex("recipes")
+      .where("id", req.params.id)
+      .update({
+        title: req.body.title,
+        author: req.body.author,
+        description: req.body.description,
+        imgURL: req.body.imgURL
+      })
+      .then(function (editRecipe) {
+        res.json(editRecipe)
+      })
+      .catch((result) => {
+        console.log("error results", result)
+      });
 })
 
 

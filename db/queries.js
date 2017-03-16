@@ -1,4 +1,4 @@
-var knex = require("../db/knex");
+const knex = require("../db/knex");
 
 module.exports = {
 
@@ -72,8 +72,15 @@ function createRecipe(recipe){
     return knex("recipes").insert(recipe);
 }
 
-function editRecipe(id, title) {
-    return knex("recipes").where("id", id).update("title", title);
+function editRecipe(id) {
+    return knex("recipes")
+        .where("id", req.params.id)
+        .update({
+          title: req.body.title,
+          author: req.body.author,
+          description: req.body.description,
+          imgURL: req.body.imgURL
+        })
 }
 function deleteRecipe(id) {
     return knex("recipes").where("id", id).del();
@@ -81,7 +88,7 @@ function deleteRecipe(id) {
 
 ////////////////// Steps Queries \\\\\\\\\\\\\\\\\\\\\
 
-function getRecipeSteps(id){
+function getRecipeSteps(id) {
     return knex("steps").select("*").where("recipe_id", id)
     // .join("recipes", "recipes.id", "=", "steps.recipe_id");
 }
@@ -90,7 +97,7 @@ function getRecipeSteps(id){
 //     return knex("steps").select("*").where("id", id);
 // }
 
-function createStep(step){
+function createStep(step) {
     return knex("steps").insert(step);
 }
 
