@@ -5,7 +5,6 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('recipes').insert([
         {
-          id: 1,
           title: "Chantal's New York Cheesecake",
           author: 'Rachael Ray',
           user_id: 4,
@@ -13,7 +12,6 @@ exports.seed = function(knex, Promise) {
           imgURL: "http://images.media-allrecipes.com/userphotos/560x315/730824.jpg"
         },
         {
-          id: 2,
           title: "Simple White Cake",
           author: 'Nathan Edlen',
           user_id: 1,
@@ -21,7 +19,6 @@ exports.seed = function(knex, Promise) {
           imgURL: "http://images.media-allrecipes.com/userphotos/250x250/636110.jpg"
         },
         {
-          id: 3,
           title: "Baked Ziti",
           author: 'Gordon Ramsay',
           user_id: 3,
@@ -29,7 +26,6 @@ exports.seed = function(knex, Promise) {
           imgURL: "http://images.media-allrecipes.com/userphotos/560x315/14573.jpg"
         },
         {
-          id: 4,
           title: "Fluffy Pancakes",
           author: 'Aunt Jemima',
           user_id: 5,
@@ -37,7 +33,6 @@ exports.seed = function(knex, Promise) {
           imgURL: "http://images.media-allrecipes.com/userphotos/560x315/4469463.jpg"
         },
         {
-          id: 5,
           title: "Brown Sugar Meatloaf",
           author: 'Tom Krepp',
           user_id: 2,

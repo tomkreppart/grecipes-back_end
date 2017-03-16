@@ -311,6 +311,7 @@ router.get('/ingredients', function(req, res, next) {
   });
 })
 
+
 router.get('/ingredients/:id', function(req, res, next) {
   queries.getIngredientsForRecipe(req.params.id).then(function (ingredients) {
     res.json(ingredients)
@@ -319,6 +320,7 @@ router.get('/ingredients/:id', function(req, res, next) {
     console.log("error results", result)
   });
 })
+
 
 router.get('/ingredients/single/:id', function(req, res, next) {
   queries.getOneIngredient(req.params.id).then(function (ingredient) {
@@ -329,12 +331,13 @@ router.get('/ingredients/single/:id', function(req, res, next) {
   });
 })
 
-router.post('/ingredients/:ingredient_id/recipes/:recipe_id', function(req, res, next) {
+
+router.post('/ingredients', function(req, res, next) {
+  console.log(req.body);
   var newIngredient = {}
-  newIngredient.units = req.body.units
-  newIngredient.quantity = req.body.quantity
-  newIngredient.recipe_id = req.params.recipe_id
-  newIngredient.ingredient_id = req.params.ingredient_id
+  newIngredient.name = req.body.name
+  newIngredient.imgURL = req.body.imgURL
+  // newIngredient.ingredient_id = req.params.id
   console.log(newIngredient);
 
   queries.createIngredient(newIngredient).then(function (ingredient) {
@@ -343,6 +346,41 @@ router.post('/ingredients/:ingredient_id/recipes/:recipe_id', function(req, res,
   .catch((result) => {
     console.log("error results", result)
   });
+})
+
+
+router.post('/ingredients/:ingredient_id/recipes/:recipe_id', function(req, res, next) {
+  var newIngredient = {}
+  newIngredient.units = req.body.units
+  newIngredient.quantity = req.body.quantity
+  newIngredient.recipe_id = req.params.recipe_id
+  newIngredient.ingredient_id = req.params.ingredient_id
+  console.log(newIngredient);
+
+  queries.createIngredientCriteria(newIngredient).then(function (ingredient) {
+    res.json(ingredient)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
+
+
+router.put('/ingredients/:id', function(req, res, next) {
+  console.log(req.params.id);
+  console.log(req.body);
+  knex("ingredients")
+      .where("id", req.params.id)
+      .update({
+        body: req.body.name,
+        stepOrder: req.body.imgURL,
+      })
+      .then(function (editIngredient) {
+        res.json(editIngredient)
+      })
+      .catch((result) => {
+        console.log("error results", result)
+      });
 })
 
 

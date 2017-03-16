@@ -31,6 +31,7 @@ module.exports = {
   getIngredientsForRecipe,
   getOneIngredient,
   createIngredient,
+  createIngredientCriteria,
   editIngredient,
   deleteIngredient,
 
@@ -167,6 +168,10 @@ function getOneIngredient(id){
 }
 
 function createIngredient(ingredient){
+    return knex("ingredients").insert(ingredient, "*");
+}
+
+function createIngredientCriteria(ingredient){
     return knex("ingredients_recipes").insert(ingredient, "*");
 }
 
