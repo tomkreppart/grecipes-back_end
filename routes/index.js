@@ -287,7 +287,7 @@ router.delete('/reviews/:id', function(req, res, next) {
 
 ////////////////// Rating Queries \\\\\\\\\\\\\\\\\\\\\
 
-router.get('/ratingAverage/:id', function(req, res, next) {
+router.get('/ratingAverage', function(req, res, next) {
   queries.getAvgRating(req.params.id).then(function (avg) {
     console.log(avg);
     res.json(avg)

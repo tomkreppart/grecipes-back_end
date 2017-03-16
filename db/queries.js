@@ -178,8 +178,13 @@ function deleteIngredient(id) {
     return knex("ingredients").where("id", id).del();
 }
 
+
+
 function getAvgRating(id) {
-    return knex('reviews')
-          .where("reviews.recipe_id", id)
-          .avg("reviews.rating")
+    return knex('recipes')
+          .join('reviews', 'recipes.id', '=', 'reviews.recipe_id')
+          // .where("reviews.recipe_id", id)
+          .groupBy("recipes.id")
+          .avg("reviews.rating").as("recipes.avg")
+          .select("recipes.*")
 }
