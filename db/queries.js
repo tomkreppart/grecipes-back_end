@@ -15,10 +15,11 @@ module.exports = {
   deleteRecipe,
 
   getRecipeSteps,
-  // getOneStep,
+  getAllSteps,
   createStep,
   editStep,
-  deleteStep,
+  deleteAllSteps,
+  deleteOneStep,
 
   getAllReviews,
   getSetOfReviews,
@@ -93,19 +94,23 @@ function getRecipeSteps(id) {
     // .join("recipes", "recipes.id", "=", "steps.recipe_id");
 }
 
-// function getOneStep(id){
-//     return knex("steps").select("*").where("id", id);
-// }
+function getAllSteps(){
+    return knex("steps").select("*");
+}
 
 function createStep(step) {
     return knex("steps").insert(step);
 }
 
 function editStep(id, step) {
-    return knex("steps").where("id", id).update(step, "id");
+    // return knex("steps").where("id", id).update(step, "id");
 }
-function deleteStep(id) {
-    return knex("steps").where("id", id).del();
+function deleteAllSteps(id) {
+    return knex("steps").where("recipe_id", id).del();
+}
+
+function deleteOneStep(id, stepNum) {
+    return knex("steps").where("recipe_id", id).where("stepOrder", stepNum).del();
 }
 
 ////////////////// Reviews Queries \\\\\\\\\\\\\\\\\\\\\

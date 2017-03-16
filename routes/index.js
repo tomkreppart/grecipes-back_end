@@ -16,6 +16,7 @@ router.get('/users', function(req, res, next) {
   });
 })
 
+
 router.get('/users/:id', function(req, res, next) {
   queries.getOneUser(req.params.id).then(function (user) {
     res.json(user)
@@ -24,6 +25,7 @@ router.get('/users/:id', function(req, res, next) {
     console.log("error results", result)
   });
 })
+
 
 router.post('/users', function(req, res, next) {
   var obj = {}
@@ -38,6 +40,7 @@ router.post('/users', function(req, res, next) {
   });
 })
 
+
 router.put('/users/:id', function(req, res, next) {
   console.log(req.body.name);
   queries.editUser(req.params.id, req.body.name).then(function (editUser) {
@@ -48,6 +51,7 @@ router.put('/users/:id', function(req, res, next) {
   });
 })
 
+
 router.delete('/users/:id', function(req, res, next) {
   queries.deleteUser(req.params.id).then(function (user) {
     res.json(user)
@@ -56,6 +60,8 @@ router.delete('/users/:id', function(req, res, next) {
     console.log("error results", result)
   });
 })
+
+
 
 
 ////////////////// Recipe Queries \\\\\\\\\\\\\\\\\\\\\
@@ -69,6 +75,7 @@ router.get('/recipes', function(req, res, next) {
   });
 })
 
+
 router.get('/recipes/:id', function(req, res, next) {
   queries.getOneRecipe(req.params.id, req.body).then(function (recipe) {
     res.json(recipe)
@@ -78,7 +85,9 @@ router.get('/recipes/:id', function(req, res, next) {
   });
 })
 
+
 router.post('/recipes', function(req, res, next) {
+
   var newRecipe = {}
   newRecipe.title = req.body.title
   newRecipe.author = req.body.author
@@ -96,6 +105,7 @@ router.post('/recipes', function(req, res, next) {
     console.log("error results", result)
   })
 })
+
 
 router.put('/recipes/:id', function(req, res, next) {
   console.log(req.params.id);
@@ -117,12 +127,24 @@ router.put('/recipes/:id', function(req, res, next) {
 })
 
 
+router.delete('/recipes/:id', function(req, res, next) {
+  queries.deleteRecipe(req.params.id).then(function (recipe) {
+    res.json(recipe)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
+
+
+
+
 
 
 ////////////////// Steps Queries \\\\\\\\\\\\\\\\\\\\\
 
-router.get('/steps/:id', function(req, res, next) {
-  queries.getRecipeSteps(req.params.id).then(function (steps) {
+router.get('/steps', function(req, res, next) {
+  queries.getAllSteps(req.body).then(function (steps) {
     res.json(steps)
   })
   .catch((result) => {
@@ -130,19 +152,69 @@ router.get('/steps/:id', function(req, res, next) {
   });
 })
 
-router.post('/steps', function(req, res, next) {
-  var obj = {}
-  obj.name = req.body.name
-  console.log(obj);
 
-  queries.createStep(obj).then(function (step) {
-    res.json(user)
+router.get('/steps/:id', function(req, res, next) {
+    queries.getRecipeSteps(req.params.id).then(function (steps) {
+      res.json(steps)
+    })
+    .catch((result) => {
+      console.log("error results", result)
+    });
+})
+
+
+router.post('/steps', function(req, res, next) {
+  var newStep = {}
+  newStep.body = req.body.body
+  newStep.recipe_id = req.body.recipe_id
+  newStep.stepOrder = req.body.stepOrder
+  console.log(newStep);
+
+  queries.createStep(newStep).then(function (step) {
+    res.json(step)
   })
   .catch((result) => {
     console.log("error results", result)
   });
 })
 
+
+router.put('/steps/:id', function(req, res, next) {
+  console.log(req.params.id);
+  console.log(req.body);
+  knex("steps")
+      .where("recipe_id", req.params.id)
+      .update({
+        body: req.body.body,
+        stepOrder: req.body.stepOrder,
+      })
+      .then(function (editStep) {
+        res.json(editStep)
+      })
+      .catch((result) => {
+        console.log("error results", result)
+      });
+})
+
+
+router.delete('/steps/:recipe_id', function(req, res, next) {
+  queries.deleteAllSteps(req.params.recipe_id).then(function (steps) {
+    res.json(steps)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
+
+
+router.delete('/steps/:recipe_id/:stepOrder', function(req, res, next) {
+  queries.deleteOneStep(req.params.recipe_id, req.params.stepOrder).then(function (step) {
+    res.json(step)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
 
 
 ////////////////// Review Queries \\\\\\\\\\\\\\\\\\\\\
@@ -156,6 +228,7 @@ router.get('/reviews', function(req, res, next) {
   });
 })
 
+
 router.get('/reviews/:id', function(req, res, next) {
   queries.getSetOfReviews(req.params.id).then(function (reviews) {
     res.json(reviews)
@@ -164,6 +237,7 @@ router.get('/reviews/:id', function(req, res, next) {
     console.log("error results", result)
   });
 })
+
 
 router.post('/reviews', function(req, res, next) {
   var obj = {}
@@ -180,6 +254,9 @@ router.post('/reviews', function(req, res, next) {
 
 
 
+
+
+
 ////////////////// Rating Queries \\\\\\\\\\\\\\\\\\\\\
 
 router.get('/ratingAverage/:id', function(req, res, next) {
@@ -191,6 +268,10 @@ router.get('/ratingAverage/:id', function(req, res, next) {
     console.log("error results", result)
   });
 })
+
+
+
+
 
 
 
