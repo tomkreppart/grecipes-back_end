@@ -117,6 +117,8 @@ router.put('/recipes/:id', function(req, res, next) {
 })
 
 
+
+
 ////////////////// Steps Queries \\\\\\\\\\\\\\\\\\\\\
 
 router.get('/steps/:id', function(req, res, next) {
@@ -155,7 +157,7 @@ router.get('/reviews', function(req, res, next) {
 })
 
 router.get('/reviews/:id', function(req, res, next) {
-  queries.getOneReview().then(function (reviews) {
+  queries.getSetOfReviews(req.params.id).then(function (reviews) {
     res.json(reviews)
   })
   .catch((result) => {

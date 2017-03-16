@@ -21,7 +21,7 @@ module.exports = {
   deleteStep,
 
   getAllReviews,
-  getOneReview,
+  getSetOfReviews,
   createReview,
   editReview,
   deleteReview,
@@ -73,14 +73,14 @@ function createRecipe(recipe){
 }
 
 function editRecipe(id) {
-    return knex("recipes")
-        .where("id", req.params.id)
-        .update({
-          title: req.body.title,
-          author: req.body.author,
-          description: req.body.description,
-          imgURL: req.body.imgURL
-        })
+    // return knex("recipes")
+    //     .where("id", id)
+    //     .update({
+    //       title: req.body.title,
+    //       author: req.body.author,
+    //       description: req.body.description,
+    //       imgURL: req.body.imgURL
+    //     })
 }
 function deleteRecipe(id) {
     return knex("recipes").where("id", id).del();
@@ -114,7 +114,7 @@ function getAllReviews(){
     return knex("reviews").select("*");
 }
 
-function getOneReview(id){
+function getSetOfReviews(id){
     return knex("reviews").select("*").where("recipe_id", id);
 }
 
