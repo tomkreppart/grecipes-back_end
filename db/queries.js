@@ -120,7 +120,9 @@ function getAllReviews(){
 }
 
 function getSetOfReviews(id){
-    return knex("reviews").select("*").where("recipe_id", id);
+    return knex("reviews")
+          .join('users', 'reviews.user_id', '=', 'users.id')
+          .where("recipe_id", id);
 }
 
 function createReview(review){

@@ -322,6 +322,22 @@ router.get('/ingredients/single/:id', function(req, res, next) {
   });
 })
 
+router.post('/ingredients/:id', function(req, res, next) {
+  var newReview = {}
+  newReview.body = req.body.body
+  newReview.rating = req.body.rating
+  newReview.recipe_id = req.body.recipe_id
+  newReview.user_id = req.body.user_id
+  console.log(newReview);
+
+  queries.createReview(newReview).then(function (review) {
+    res.json(review)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
+
 
 
 module.exports = router;
