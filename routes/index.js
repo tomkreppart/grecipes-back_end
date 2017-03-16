@@ -333,8 +333,8 @@ router.post('/ingredients/:ingredient_id/recipes/:recipe_id', function(req, res,
   var newIngredient = {}
   newIngredient.units = req.body.units
   newIngredient.quantity = req.body.quantity
-  newIngredient.recipe_id = req.body.recipe_id
-  newIngredient.ingredient_id = req.body.ingredient_id
+  newIngredient.recipe_id = req.params.recipe_id
+  newIngredient.ingredient_id = req.params.ingredient_id
   console.log(newIngredient);
 
   queries.createIngredient(newIngredient).then(function (ingredient) {
