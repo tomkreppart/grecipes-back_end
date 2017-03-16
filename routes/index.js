@@ -229,8 +229,8 @@ router.get('/reviews', function(req, res, next) {
 })
 
 
-router.get('/reviews/:id', function(req, res, next) {
-  queries.getSetOfReviews(req.params.id).then(function (reviews) {
+router.get('/reviews/:recipe_id', function(req, res, next) {
+  queries.getSetOfReviews(req.params.recipe_id).then(function (reviews) {
     res.json(reviews)
   })
   .catch((result) => {
@@ -274,9 +274,9 @@ router.put('/reviews/:id', function(req, res, next) {
       });
 })
 
-router.delete('/reviews/:recipe_id/:user_id', function(req, res, next) {
-  queries.deleteOneStep(req.params.recipe_id, req.params.stepOrder).then(function (step) {
-    res.json(step)
+router.delete('/reviews/:id', function(req, res, next) {
+  queries.deleteReview(req.params.id).then(function (review) {
+    res.json(review)
   })
   .catch((result) => {
     console.log("error results", result)
