@@ -128,7 +128,7 @@ function createReview(review){
 }
 
 function editReview(id, review) {
-    return knex("reviews").where("id", id).update(review, "id");
+    // return knex("reviews").where("id", id).update(review, "id");
 }
 function deleteReview(id) {
     return knex("reviews").where("id", id).del();
@@ -155,7 +155,7 @@ function createIngredient(ingredient){
 }
 
 function editIngredient(id, ingredient) {
-    return knex("ingredients").where("id", id).update(ingredient, "id");
+    // return knex("ingredients").where("id", id).update(ingredient, "id");
 }
 
 function deleteIngredient(id) {

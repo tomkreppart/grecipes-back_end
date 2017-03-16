@@ -183,7 +183,7 @@ router.put('/steps/:id', function(req, res, next) {
   console.log(req.params.id);
   console.log(req.body);
   knex("steps")
-      .where("recipe_id", req.params.id)
+      .where("id", req.params.id)
       .update({
         body: req.body.body,
         stepOrder: req.body.stepOrder,
@@ -240,11 +240,14 @@ router.get('/reviews/:id', function(req, res, next) {
 
 
 router.post('/reviews', function(req, res, next) {
-  var obj = {}
-  obj.name = req.body.name
-  console.log(obj);
+  var newReview = {}
+  newReview.body = req.body.body
+  newReview.rating = req.body.rating
+  newReview.recipe_id = req.body.recipe_id
+  newReview.user_id = req.body.user_id
+  console.log(newReview);
 
-  queries.createStep(obj).then(function (review) {
+  queries.createReview(newReview).then(function (review) {
     res.json(review)
   })
   .catch((result) => {
@@ -253,7 +256,32 @@ router.post('/reviews', function(req, res, next) {
 })
 
 
+router.put('/reviews/:id', function(req, res, next) {
 
+  knex("reviews")
+      .where("id", req.params.id)
+      // .where("recipe_id", req.params.recipe_id)
+      // .andWhere("user_id", req.params.user_id)
+      .update({
+        body: req.body.body,
+        rating: req.body.rating
+      })
+      .then(function (editStep) {
+        res.json(editStep)
+      })
+      .catch((result) => {
+        console.log("error results", result)
+      });
+})
+
+router.delete('/reviews/:recipe_id/:user_id', function(req, res, next) {
+  queries.deleteOneStep(req.params.recipe_id, req.params.stepOrder).then(function (step) {
+    res.json(step)
+  })
+  .catch((result) => {
+    console.log("error results", result)
+  });
+})
 
 
 
@@ -268,7 +296,6 @@ router.get('/ratingAverage/:id', function(req, res, next) {
     console.log("error results", result)
   });
 })
-
 
 
 
