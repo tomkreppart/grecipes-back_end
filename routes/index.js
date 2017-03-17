@@ -384,5 +384,24 @@ router.put('/ingredients/:id', function(req, res, next) {
 })
 
 
+router.put('/ingredients/:ingredient_id/recipes/:recipe_id/:id', function(req, res, next) {
+  console.log(req.params.id);
+  console.log(req.body);
+  knex("ingredients")
+      .where("id", req.params.ingredient_id)
+      .update({
+        body: req.body.name,
+        stepOrder: req.body.imgURL
+      })
+      .then(function (editIngredient) {
+        res.json(editIngredient)
+      })
+      .catch((result) => {
+        console.log("error results", result)
+      });
+})
+
+
+
 
 module.exports = router;
